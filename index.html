@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <!-- viewport-fit=cover = iPhone / iPad only (the home-screen app draws under the status bar on purpose). Android Chrome 135+ turns
+         it into edge-to-edge in an installed app WITHOUT reporting the status-bar inset → the top was cut (user 2026-11-13, tablet). -->
+    <script>(function(){try{var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);if(!ios){var m=document.querySelector('meta[name=viewport]');if(m)m.setAttribute('content','width=device-width, initial-scale=1, maximum-scale=1');}}catch(e){}})();</script>
+    <title>Pay Ping Pong</title>
+    <meta name="description" content="Pay Ping Pong — חנויות, הזמנות, תשלומים ומסמכים לעסקים וללקוחות." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#EEF2FD" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B1030" media="(prefers-color-scheme: dark)" />
+    <meta name="application-name" content="Pay Ping Pong" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Pay Ping Pong" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      html, body { height: 100%; }
+      html { background: #DCE3F5; }
+      body { overflow: hidden; margin: 0; background: #EEF2FD; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+      html { overflow: hidden; }
+      #root { display: flex; height: 100%; flex: 1; overflow: hidden; }
+      input:focus, textarea:focus, select:focus, [contenteditable]:focus { outline: none; }
+      /* Wide screens (desktop / tablet): the app is a phone-width column in the middle of the page. `transform` makes the body the
+         containing block of every fixed element, so Modals / sheets / dialogs stay inside the column (lib/webSetup.ts: WEB_COL). */
+      @media (min-width: 520px) {
+        body { max-width: 480px; margin: 0 auto; position: relative; transform: translateZ(0); box-shadow: 0 0 0 1px rgba(9,14,42,0.06), 0 12px 48px rgba(9,14,42,0.18); }
+      }
+      body.pp-wide { max-width: none !important; transform: none !important; box-shadow: none !important; }
+      @media (prefers-color-scheme: dark) {
+        html { background: #05081A; }
+        body { background: #0B1030; }
+      }
+
+
+
+    </style>
+  <meta name="theme-color" content="#4A7CF4">
+<style>html,body{background:#EEF2FD!important}@media (prefers-color-scheme:dark){html,body{background:#07091C!important}}</style></head>
+  <body>
+    <noscript>Pay Ping Pong צריך JavaScript כדי לפעול. · You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  <style>
+#ppl{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;font-family:-apple-system,BlinkMacSystemFont,"SF Hebrew",Heebo,sans-serif;background:#EEF2FD;color:#090E2A;z-index:5}
+#ppl img{width:96px;height:96px;border-radius:22px;box-shadow:0 8px 24px rgba(9,14,42,.15)}
+#ppl .t{font-size:20px;font-weight:800}#ppl .s{font-size:13px;color:#5B6386;min-height:18px}
+#ppl .bar{width:200px;height:6px;border-radius:3px;background:rgba(74,124,244,.18);overflow:hidden}#ppl .bar i{display:block;height:100%;width:3%;background:#4A7CF4;border-radius:3px;transition:width .2s}
+#ppl form{display:none;flex-direction:column;gap:10px;width:260px}#ppl input{height:48px;border-radius:24px;border:1.5px solid rgba(74,124,244,.45);padding:0 18px;font-size:16px;text-align:center;background:#fff;color:#090E2A;outline:none}
+#ppl .rm{display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;cursor:pointer;user-select:none}#ppl .rm input{width:20px;height:20px;accent-color:#4A7CF4;margin:0}#ppl button{height:48px;border-radius:24px;border:0;background:#4A7CF4;color:#fff;font-size:16px;font-weight:700}#ppl .e{color:#E53E3E;font-size:13px;text-align:center;min-height:16px}
+@media (prefers-color-scheme:dark){#ppl{background:#0B1030;color:#E2E8FF}#ppl .s{color:#8A93BC}#ppl input{background:#1B2352;color:#E2E8FF}}
+</style>
+<div id="ppl" dir="rtl"><img src="./icons/icon-192.png" alt=""><div class="t">Pay Ping Pong</div><div class="bar"><i id="pplb"></i></div><div class="s" id="ppls">טוען…</div>
+<form id="pplf" method="post" action="#"><input type="text" name="username" autocomplete="username" value="Pay Ping Pong" readonly style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none" tabindex="-1" aria-hidden="true"><input id="pplp" name="password" type="password" placeholder="סיסמה" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false"><label class="rm"><input type="checkbox" id="pplr" checked><span>לזכור אותי במכשיר הזה</span></label><button type="submit">כניסה</button><div class="e" id="pple"></div></form></div>
+<script>(function(){try{document.body.classList.add('pp-wide')}catch(e){}var BIN='./pp/app-b756bae91e3c.bin',SALT='54af5c401d6fbed5cd8760ed8218da4c',IT=250000,LK='pp_web_k1';var S=crypto.subtle,$=function(i){return document.getElementById(i)};
+function hex(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}function unhex(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+if(typeof DecompressionStream==='undefined'||!S){$('ppls').textContent='יש לעדכן את הדפדפן כדי לפתוח את האפליקציה';return}
+var binP=fetch(BIN).then(function(r){if(!r.ok)throw 0;var tot=+r.headers.get('content-length')||0,got=0,parts=[],rd=r.body.getReader();
+ return (function pump(){return rd.read().then(function(x){if(x.done){var a=new Uint8Array(got),o=0;parts.forEach(function(p){a.set(p,o);o+=p.length});$('pplb').style.width='100%';return a}
+ parts.push(x.value);got+=x.value.length;if(tot)$('pplb').style.width=Math.max(3,Math.round(got*100/tot))+'%';return pump()})})()});
+function run(key,saveRaw){return binP.then(function(b){return S.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12)).catch(function(){var e=new Error('pw');e.pw=1;throw e})}).then(function(p){
+ if(saveRaw)try{var keep=$('pplr')?$('pplr').checked:true;if(keep)localStorage.setItem(LK,saveRaw);else{localStorage.removeItem(LK);sessionStorage.setItem(LK,saveRaw)}}catch(e){}$('ppls').textContent='פותח…';
+ return new Response(new Blob([p]).stream().pipeThrough(new DecompressionStream('gzip'))).text()}).then(function(js){
+ var s=document.createElement('script');s.src=URL.createObjectURL(new Blob([js],{type:'text/javascript'}));document.body.appendChild(s);
+ var t=setInterval(function(){var r=$('root');if(r&&r.childElementCount){clearInterval(t);var l=$('ppl');l&&l.remove()}},100)})}
+function ask(){$('pplf').style.display='flex';$('ppls').textContent='';setTimeout(function(){$('pplp').focus()},50)}
+$('pplf').addEventListener('submit',function(ev){ev.preventDefault();$('pple').textContent='';var pw=$('pplp').value.trim();if(!pw)return;$('ppls').textContent='בודק…';
+ S.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(b){return S.deriveKey({name:'PBKDF2',salt:unhex(SALT),iterations:IT,hash:'SHA-256'},b,{name:'AES-GCM',length:256},true,['decrypt'])})
+ .then(function(k){return S.exportKey('raw',k).then(function(r){$('pplf').style.display='none';return run(k,hex(r))})}).catch(function(e){$('pplf').style.display='flex';$('ppls').textContent='';$('pple').textContent=(e&&e.pw)?'סיסמה שגויה':'שגיאה בפתיחה: '+((e&&(e.message||e.name))||e)+' — נסו לרענן'})});
+var raw=null;try{raw=localStorage.getItem(LK)||sessionStorage.getItem(LK)}catch(e){}
+if(raw){S.importKey('raw',unhex(raw),{name:'AES-GCM'},false,['decrypt']).then(function(k){return run(k)}).catch(function(e){if(e&&e.pw){try{localStorage.removeItem(LK)}catch(x){}ask()}else{$('ppls').textContent='שגיאה בפתיחה: '+((e&&(e.message||e.name))||e)+' — נסו לרענן'}})}else ask();
+binP.catch(function(){$('ppls').textContent='אין חיבור — נסו שוב'});})();</script>
+<style>#ppa2{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;display:flex;align-items:center;gap:10px;direction:rtl;padding:12px 12px 12px 14px;border-radius:22px;background:rgba(255,255,255,.97);color:#090E2A;box-shadow:0 10px 30px rgba(9,14,42,.22);font:500 14px/1.45 -apple-system,BlinkMacSystemFont,"SF Hebrew",Heebo,sans-serif;max-width:520px;margin:0 auto;animation:ppa2in .35s ease-out}#ppa2 img{width:40px;height:40px;border-radius:10px;flex:none}#ppa2 .t{flex:1;min-width:0}#ppa2 b{display:block;font-weight:800;font-size:14.5px}#ppa2 .x{flex:none;width:30px;height:30px;border:0;border-radius:15px;background:#EEF2FD;color:#5B6386;font-size:15px;line-height:30px;padding:0}#ppa2 .go{flex:none;height:34px;border:0;border-radius:17px;padding:0 14px;background:#4A7CF4;color:#fff;font-weight:700;font-size:14px}@keyframes ppa2in{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}@media (prefers-color-scheme:dark){#ppa2{background:rgba(27,35,82,.97);color:#E2E8FF}#ppa2 .x{background:#0B1030;color:#8A93BC}}</style>
+<script>(function(){try{
+var K='pp_a2hs_off',ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),and=/Android/.test(ua);
+var sa=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+if(sa||!(ios||and))return;try{if(localStorage.getItem(K))return}catch(e){}
+var dp=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;var g=document.querySelector('#ppa2 .go');if(g)g.style.display=''});
+function show(){if(document.getElementById('ppa2'))return;var d=document.createElement('div');d.id='ppa2';d.setAttribute('role','status');
+var msg=ios?'לוחצים על כפתור השיתוף <svg aria-hidden="true" width="15" height="17" viewBox="0 0 24 24" fill="none" stroke="#4A7CF4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin:0 2px"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M7 10H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2"/></svg> ובוחרים «הוספה למסך הבית» — ופותחים מהאייקון.':'בתפריט הדפדפן ⋮ בוחרים «התקנת אפליקציה» או «הוספה למסך הבית».';
+d.innerHTML='<img src="./icons/icon-192.png" alt=""><div class="t"><b>להצגה במסך מלא</b>'+msg+'</div><button class="go" type="button" style="display:none">התקנה</button><button class="x" type="button" aria-label="סגירה">✕</button>';
+document.body.appendChild(d);
+d.querySelector('.x').onclick=function(){try{localStorage.setItem(K,'1')}catch(e){}d.remove()};
+var g=d.querySelector('.go');if(dp)g.style.display='';g.onclick=function(){if(!dp)return;dp.prompt();dp.userChoice.then(function(){d.remove()})}}
+var t=setInterval(function(){if(!document.getElementById('ppl')){clearInterval(t);setTimeout(show,2500)}},500);
+}catch(e){}})();</script>
+</body>
+</html>
