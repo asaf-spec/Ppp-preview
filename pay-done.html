@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Pay Ping Pong</title>
+<style>
+  :root { --bg:#EEF2FD; --ink:#090E2A; --sub:#5B6386; --ok:#16A34A; --err:#E5484D; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0B1030; --ink:#E2E8FF; --sub:#A3ACD1; } }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "SF Hebrew", Heebo, Arial, sans-serif; }
+  .w { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:0 24px; text-align:center; }
+  .c { width:64px; height:64px; border-radius:32px; display:flex; align-items:center; justify-content:center; font-size:32px; color:#fff; }
+  h1 { margin:0; font-size:20px; } p { margin:0; color:var(--sub); font-size:15px; }
+</style>
+</head>
+<body>
+<!-- The web app's payment result page (2026-11-12). Takbull's page runs inside the app (an iframe); the edges send the result
+     here — the app's OWN origin — and this page only posts it to the app around it. No sign-in, no app code. -->
+<div class="w"><div class="c" id="c"></div><h1 id="t"></h1><p id="m"></p></div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var ok = q.get('s') !== 'err';
+  var msg = q.get('msg') || '';
+  var c = document.getElementById('c');
+  c.style.background = ok ? 'var(--ok)' : 'var(--err)';
+  c.textContent = ok ? '✓' : '!';
+  document.getElementById('t').textContent = ok ? 'התשלום התקבל' : (msg === 'התשלום בוטל' ? 'התשלום בוטל' : 'התשלום לא הושלם');
+  document.getElementById('m').textContent = ok ? 'חוזרים לאפליקציה…' : (msg && msg !== 'התשלום בוטל' ? msg : 'חוזרים לאפליקציה…');
+  var data = { type: 'pp-pay', s: ok ? 'ok' : 'err', msg: msg, amt: q.get('amt') || q.get('amount') || '', order: q.get('order') || '' };
+  var t = null;
+  try { if (window.parent && window.parent !== window) t = window.parent; else if (window.opener && window.opener !== window) t = window.opener; } catch (e) {}
+  if (t) { try { t.postMessage(data, location.origin); } catch (e) {} if (t === window.opener) setTimeout(function () { try { window.close(); } catch (e) {} }, 900); }
+  else setTimeout(function () { location.replace('./'); }, 1500);   // opened on its own → back to the app
+})();
+</script>
+</body>
+</html>
